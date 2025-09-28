@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cart - NIKE</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url("background2.gif") no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      min-height: 100vh;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: linear-gradient(180deg, #111, #222);
+      color: white;
+      padding: 2em 1em;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.35s ease;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      z-index: 1000;
+    }
+    .logo {
+      background: #e63946;
+      font-weight: bold;
+      font-size: 1.8em;
+      text-align: center;
+      padding: 1em;
+      border-radius: 12px;
+      margin-bottom: 2em;
+      letter-spacing: 2px;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    nav ul li {
+      margin: 1.2em 0;
+    }
+    nav ul li a {
+      background: #333;
+      color: #f1f1f1;
+      text-decoration: none;
+      font-size: 1em;
+      font-weight: 500;
+      padding: 12px 15px;
+      border-radius: 8px;
+      display: block;
+      transition: background 0.3s, transform 0.2s;
+    }
+    nav ul li a:hover,
+    nav ul li a.active {
+      background: #e63946;
+      transform: translateX(6px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .user-info {
+      text-align: center;
+    }
+    .logout-btn {
+      margin-top: 10px;
+      padding: 8px 14px;
+      background: #e63946;
+      border: none;
+      border-radius: 50px;
+      color: #fff;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .logout-btn:hover {
+      background: #c92a35;
+    }
+
+    /* Main */
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: 220px;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    /* Cart Table */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 90%;
+      max-width: 900px;
+      min-width: 500px;
+      border-collapse: collapse;
+      background: rgba(30,30,30,0.85);
+      border-radius: 12px;
+      overflow: hidden;
+      color: #fff;
+    }
+    th, td {
+      padding: 15px;
+      text-align: center;
+      color: #fff;
+    }
+    th {
+      background: rgba(50,50,50,0.9);
+      color: #fff;
+    }
+    td {
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    .qty-btn {
+      padding: 5px 10px;
+      border: none;
+      background: #e63946;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      margin: 0 5px;
+    }
+    .qty-btn:hover {
+      background: #c92a35;
+    }
+    .total {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #fff;
+    }
+    .buy-btn {
+      margin-top: 15px;
+      padding: 12px 25px;
+      background: #e63946;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .buy-btn:hover {
+      background: #c92a35;
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: #fff;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background: #e63946;
+      padding: 6px 12px;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+      .sidebar {
+        transform: translateX(-100%);
+        box-shadow: none;
+      }
+      .sidebar.active {
+        transform: translateX(0);
+        box-shadow: 2px 0 12px rgba(0,0,0,0.4);
+      }
+      .main-content {
+        padding: 6em 2em;
+        margin-left: 0;
+      }
+      .hamburger {
+        display: block;
+      }
+      table img {
+        width: 40px;
+        height: 40px;
+      }
+      .qty-btn {
+        padding: 3px 6px;
+        font-size: 14px;
+      }
+      .buy-btn {
+        font-size: 16px;
+        padding: 10px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div>
+      <div class="logo">NIGGA</div>
+      <nav>
+        <ul>
+          <li><a href="home2.html">🏠 Home</a></li>
+          <li><a href="products2.html">👟 Products</a></li>
+          <li><a href="userpanel.html">👤 Profile</a></li>
+          <li><a href="cart.html" class="active">🛒 Cart</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="user-info">
+      <p id="userFullName">Loading...</p>
+      <button class="logout-btn" onclick="logout()">Log Out</button>
+    </div>
+  </div>
+
+  <!-- Hamburger -->
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <h2>Your Cart</h2>
+    <div class="table-container">
+      <table id="cartTable">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="total" id="totalAmount">Total: ₱0</div>
+    <button class="buy-btn" onclick="buyNow()">Buy Now</button>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartTableBody = document.querySelector("#cartTable tbody");
+    const totalAmountEl = document.getElementById("totalAmount");
+
+    function renderCart() {
+      cartTableBody.innerHTML = "";
+      let total = 0;
+
+      if (cart.length === 0) {
+        cartTableBody.innerHTML = `<tr><td colspan="5">Your cart is empty.</td></tr>`;
+      }
+
+      cart.forEach((item, index) => {
+        // Parse price for math, keep commas out
+        const priceNum = parseInt(item.price.replace("₱","").replace(/,/g,''));
+        const qty = item.qty || 1;
+        const subtotal = priceNum * qty;
+        total += subtotal;
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>
+            <img src="${item.img}" alt="${item.name}" style="width:60px;height:60px;border-radius:8px;vertical-align:middle;margin-right:10px;">
+            ${item.name}
+          </td>
+          <td>${item.price}</td>
+          <td>
+            <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+            ${qty}
+            <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+          </td>
+          <td>₱${subtotal.toLocaleString()}</td>
+          <td>
+            <button class="qty-btn" style="background:red" onclick="removeItem(${index})">Remove</button>
+          </td>
+        `;
+        cartTableBody.appendChild(row);
+      });
+
+      totalAmountEl.innerText = "Total: ₱" + total.toLocaleString();
+    }
+
+    function changeQty(index, delta) {
+      cart[index].qty = cart[index].qty || 1;
+      cart[index].qty += delta;
+      if (cart[index].qty < 1) cart[index].qty = 1;
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    function buyNow() {
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+
+      let total = 0;
+      cart.forEach(item => {
+        const priceNum = parseInt(item.price.replace("₱","").replace(/,/g,''));
+        const qty = item.qty || 1;
+        total += priceNum * qty;
+      });
+
+      alert(`Thank you for your purchase! Total: ₱${total.toLocaleString()}`);
+      localStorage.removeItem("cart");
+      cart = [];
+      renderCart();
+    }
+
+    const userFullName = localStorage.getItem("username") || "Guest";
+    document.getElementById("userFullName").innerText = `Welcome, ${userFullName}`;
+
+    renderCart();
+
+    function logout() {
+      localStorage.removeItem("username");
+      window.location.href = "home2.html";
+    }
+  </script>
+</body>
+</html>

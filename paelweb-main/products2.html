@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products - NIKE</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url("background.gif") no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      min-height: 100vh;
+      color: #fff;
+    }
+
+    /* ---------- SIDEBAR ---------- */
+    .sidebar {
+      width: 220px;
+      background: linear-gradient(180deg, #111, #222);
+      color: white;
+      padding: 2em 1em;
+      flex-shrink: 0;
+      box-shadow: 2px 0 12px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      transition: transform 0.3s ease;
+      z-index: 1000;
+    }
+
+    .logo {
+      background: #e63946;
+      color: white;
+      font-weight: bold;
+      font-size: 1.8em;
+      text-align: center;
+      padding: 1em;
+      border-radius: 12px;
+      margin-bottom: 2em;
+      letter-spacing: 2px;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav ul li {
+      margin: 1.2em 0;
+    }
+
+    nav ul li a {
+      background: #333;
+      color: #f1f1f1;
+      text-decoration: none;
+      font-size: 1em;
+      font-weight: 500;
+      padding: 12px 15px;
+      border-radius: 8px;
+      display: block;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      background: #e63946;
+      transform: translateX(6px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .user-info {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .user-info p {
+      margin: 0;
+      font-size: 1em;
+    }
+
+    /* ---------- MAIN CONTENT ---------- */
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      background: url("images/giphy.gif") no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: 220px; /* desktop offset for sidebar */
+      transition: margin-left 0.3s ease;
+    }
+
+    /* Promo */
+    .promo-area {
+      width: 100%;
+      max-width: 1200px;
+      margin-bottom: 30px;
+    }
+    .promo-area img {
+      width: 100%;
+      border-radius: 10px;
+      display: block;
+    }
+
+    /* ---------- PRODUCT GRID ---------- */
+    .products-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    /* Product Card */
+    .product-card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+    }
+
+    .product-card img {
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      transition: transform 0.3s ease;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .product-card h3 {
+      color: #fff;
+      margin: 10px 0;
+    }
+
+    .price {
+      color: #e63946;
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 6px;
+    }
+
+    .add-to-cart {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 18px;
+      background: #e63946;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      border: 1px solid rgba(230, 57, 70, 0.6);
+      box-shadow: 0 0 25px rgba(230, 57, 70, 0.6);
+    }
+
+    .product-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .add-to-cart:hover {
+      background: #c92a35;
+      transform: scale(1.08);
+      box-shadow: 0 0 18px rgba(230, 57, 70, 0.7);
+    }
+
+    /* ---------- HAMBURGER ---------- */
+    .hamburger {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: #fff;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1100;
+      background: #e63946;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .hamburger {
+        display: block;
+      }
+      .products-container {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hamburger Button -->
+  <button class="hamburger" onclick="toggleSidebar()">☰</button>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div>
+      <div class="logo">NIGGA</div>
+      <nav>
+        <ul>
+          <li><a href="home2.html">🏠 Home</a></li>
+          <li><a href="products2.html" class="active">👟 Products</a></li>
+          <li><a href="userpanel.html">👤 Profile</a></li>
+          <li><a href="cart.html">🛒 Cart</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="user-info">
+      <p>Welcome, NIGGA</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="promo-area">
+      <img src="images/promo-shoe.gif" alt="Promo" />
+    </div>
+    <div class="products-container">
+      <!-- PRODUCTS START -->
+      <div class="product-card">
+        <img src="images/first.jfif" alt="Nike Air Zoom">
+        <h3>Nike Air Zoom</h3>
+        <p class="price">₱4,500</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="images/images2.jfif" alt="Adidas Ultraboost">
+        <h3>Adidas Ultraboost</h3>
+        <p class="price">₱5,200</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="images/images3.jpg" alt="Puma RS-X">
+        <h3>Puma RS-X</h3>
+        <p class="price">₱3,800</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/ab132ade-35a9-47d1-af9a-66ad6f21ed45/NIKE+REVOLUTION+7+WIDE.png" alt="Nike Revolution">
+        <h3>Nike Revolution</h3>
+        <p class="price">₱3,500</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="https://i.ebayimg.com/images/g/WLYAAeSw1GVn3wUY/s-l1200.jpg" alt="Adidas NMD">
+        <h3>Adidas NMD</h3>
+        <p class="price">₱4,900</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="https://assets.adidas.com/images/w_600,f_auto,q_auto/1fcd8a9be9e541efa469050016862087_faec/adidas_Star_Wars_NMD_R1_Nanzuka_Shoes_Black_IE6000_db04_standard.jpg" alt="Puma Ignite">
+        <h3>Puma Ignite</h3>
+        <p class="price">₱3,600</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/416e1d81-a6ed-4401-93d1-e5e26ea37a8d/AIR+FORCE+1+%2707.png" alt="Nike Air Force 1">
+        <h3>Nike Air Force 1</h3>
+        <p class="price">₱5,000</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="https://cdn-images.farfetch-contents.com/17/94/65/95/17946595_40508979_600.jpg" alt="Adidas Yeezy">
+        <h3>Adidas Yeezy</h3>
+        <p class="price">₱6,500</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/399781/01/sv01/fnd/PHL/fmt/png/Suede-Classic-Sneakers-Unisex" alt="Puma Suede Classic">
+        <h3>Puma Suede Classic</h3>
+        <p class="price">₱3,200</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <!-- PRODUCTS END -->
+    </div>
+  </div>
+
+  <script>
+    // Hamburger toggle
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+
+    // Auto-close sidebar on mobile link click
+    document.querySelectorAll(".sidebar nav ul li a").forEach(link => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth <= 768) {
+          document.getElementById("sidebar").classList.remove("active");
+        }
+      });
+    });
+
+    // Add to Cart functionality
+    const buttons = document.querySelectorAll(".add-to-cart");
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const card = btn.closest(".product-card");
+        const product = {
+          name: card.querySelector("h3").innerText,
+          price: card.querySelector(".price").innerText,
+          img: card.querySelector("img").src,
+          qty: 1
+        };
+
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const existingIndex = cart.findIndex(item => item.name === product.name);
+        if (existingIndex > -1) {
+          cart[existingIndex].qty += 1;
+        } else {
+          cart.push(product);
+        }
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert(`${product.name} added to cart!`);
+      });
+    });
+  </script>
+</body>
+</html>

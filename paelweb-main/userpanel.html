@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      height: 100vh;
+      color: #222;
+      background: #f8f9fa;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 220px;
+      background: linear-gradient(180deg, #111, #222);
+      color: white;
+      padding: 2em 1em;
+      flex-shrink: 0;
+      box-shadow: 2px 0 12px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease; /* smoother slide */
+    }
+
+    .logo {
+      background: #e63946;
+      color: white;
+      font-weight: bold;
+      font-size: 1.8em;
+      text-align: center;
+      padding: 1em;
+      border-radius: 12px;
+      margin-bottom: 2em;
+      letter-spacing: 2px;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    nav ul li {
+      margin: 1.2em 0;
+    }
+
+    nav ul li a {
+      background: #333;
+      color: #f1f1f1;
+      text-decoration: none;
+      font-size: 1em;
+      font-weight: 500;
+      padding: 12px 15px;
+      border-radius: 8px;
+      display: block;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      background: #e63946;
+      transform: translateX(6px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    /* MAIN CONTENT */
+    .main-content {
+      flex: 1;
+      position: relative;
+      background: url("background.gif.gif") no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2em;
+    }
+
+    .content {
+      z-index: 2;
+      max-width: 520px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2em;
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .content h1 {
+      font-size: 2.4em;
+      margin-bottom: 0.6em;
+      color: #fff;
+    }
+
+    .content p {
+      font-size: 1.2em;
+      margin-bottom: 1.5em;
+      color: #f1f1f1;
+    }
+
+    .logout-btn {
+      display: inline-block;
+      background: #e63946;
+      color: white;
+      padding: 0.9em 1.6em;
+      border-radius: 50px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    .logout-btn:hover {
+      background: #c92a35;
+      transform: translateY(-3px);
+    }
+
+    /* HAMBURGER */
+    .hamburger {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: #fff;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background: #e63946;
+      padding: 6px 12px;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        transform: translateX(-100%); /* ✅ totally hide (no black edge) */
+        z-index: 1000;
+      }
+
+      .sidebar.active {
+        transform: translateX(0); /* show when active */
+      }
+
+      .main-content {
+        padding: 6em 2em;
+        margin-left: 0; /* reset margin on mobile */
+      }
+
+      .hamburger {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="logo">NIGGA</div> 
+    <nav>
+      <ul>
+        <li><a href="home2.html">🏠 Home</a></li>
+        <li><a href="products2.html">👟 Products</a></li>
+        <li><a href="userpanel.html" class="active">👤 Profile</a></li>
+        <li><a href="cart.html">🛒 Cart</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Hamburger -->
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="content">
+      <h1 id="welcome">Loading...</h1>
+      <p>This is your personal panel.</p>
+      <button class="logout-btn" id="logout-btn">Log Out</button>
+    </div>
+  </div>
+
+  <!-- Supabase -->
+  <script src="https://unpkg.com/@supabase/supabase-js"></script>
+  <script>
+    const SUPABASE_URL = "https://upzalvmttskmpbtnbygt.supabase.co";
+    const SUPABASE_ANON_KEY =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVwemFsdm10dHNrbXBidG5ieWd0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY3NDAzMzEsImV4cCI6MjA3MjMxNjMzMX0.5dn1w32LkoSl8dZLBE_63P8pl-Y3vyP6S-W9IGs00I8";
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const welcome = document.getElementById("welcome");
+    const logoutBtn = document.getElementById("logout-btn");
+
+    // Load user info
+    async function loadUser() {
+      const { data: { user } } = await supabaseClient.auth.getUser();
+
+      if (user) {
+        const fullName = user.user_metadata?.full_name || user.email;
+        welcome.textContent = `Welcome, ${fullName}`;
+      } else {
+        welcome.textContent = "Welcome, Guest"; // ✅ guest mode
+      }
+    }
+
+    loadUser();
+
+    // Logout
+   logoutBtn.addEventListener("click", async () => {
+  await supabaseClient.auth.signOut();
+  // redirect to index.html
+  window.location.href = "index.html";
+});
+
+
+    // Toggle Sidebar
+    function toggleMenu() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+
+    // Auto-close sidebar on mobile link click
+    document.querySelectorAll(".sidebar nav ul li a").forEach(link => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth <= 768) {
+          document.getElementById("sidebar").classList.remove("active");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

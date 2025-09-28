@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About - CAMASURA</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      background: url("background.gif") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: linear-gradient(180deg, #111, #222);
+      color: #fff;
+      padding: 20px;
+      position: fixed;
+      top: 0;
+      left: 0; /* visible by default on desktop */
+      height: 100%;
+      transition: left 0.3s ease;
+      z-index: 999;
+      box-shadow: 4px 0 15px rgba(0,0,0,0.3);
+    }
+
+    .sidebar .logo {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .sidebar nav ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar nav ul li {
+      margin: 15px 0;
+    }
+
+    .sidebar nav ul li a {
+      background-color: red;
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 5px;
+      display: block;
+      transition: background 0.3s, box-shadow 0.3s;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .sidebar nav ul li a:hover,
+    .sidebar nav ul li a.active {
+      background-color: darkred;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Hamburger button */
+    .hamburger {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: #111;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background: #fff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 220px; /* default with sidebar visible */
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .profile-card {
+      max-width: 600px;
+      width: 100%;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .profile-card img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.6);
+      margin-bottom: 20px;
+    }
+
+    .profile-card h2 {
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .profile-card p {
+      color: #ddd;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    /* Social Links */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .social-links a {
+      padding: 12px 20px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    }
+
+    .social-links a:hover {
+      background: rgba(230, 57, 70, 0.9);
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(230, 57, 70, 0.7);
+    }
+
+    /* Sign In & Register */
+    .sign-in-container {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 1002;
+    }
+
+    .sign-in-btn,
+    .register-btn {
+      padding: 10px 15px;
+      margin-left: 10px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .sign-in-btn {
+      background: #333;
+      color: #fff;
+    }
+
+    .register-btn {
+      background: red;
+      color: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar {
+        left: -240px; /* hidden on mobile by default */
+      }
+
+      .sidebar.active {
+        left: 0;
+      }
+
+      .main-content {
+        margin-left: 0;
+        padding-top: 100px;
+      }
+
+      .hamburger {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="logo">CAMASURA</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Hamburger button -->
+  <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="profile-card">                    
+      <img src="images/pael.jpg" alt="Profile Picture" />
+      <h2>Hi, I'm PAEL </h2>
+      <p>
+        I’m a <b>2nd year BSIT student</b>, a tech-savvy gamer, and always curious about exploring new technologies and creative projects.  
+      </p>
+      <div class="social-links">
+        <a href="https://www.facebook.com/pa.el.camasura" target="_blank">Facebook</a>
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">YouTube</a>
+        <a href="https://www.instagram.com/james" target="_blank">Instagram</a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Sign In & Register -->
+  <div class="sign-in-container">
+    <button onclick="window.location.href='signin.html'" class="sign-in-btn">Sign In</button>
+    <button onclick="window.location.href='register.html'" class="register-btn">Register</button>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+  </script>
+</body>
+</html>

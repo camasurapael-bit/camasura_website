@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAMASURA Website</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: #111;
+      color: #fff;
+      padding: 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      transition: left 0.3s ease;
+      z-index: 999;
+    }
+
+    .sidebar .logo {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .sidebar nav ul {
+      list-style: none;
+    }
+
+    .sidebar nav ul li {
+      margin: 15px 0;
+    }
+
+    .sidebar nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    /* Hamburger button */
+    .hamburger {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: #111;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background: #fff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 220px;
+      padding: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .main-content .content h1 {
+      font-size: 40px;
+    }
+
+    .main-content .content h1 span {
+      color: red;
+    }
+
+    .main-content .content p {
+      margin: 20px 0;
+    }
+
+    .shop-button {
+      display: inline-block;
+      padding: 12px 20px;
+      background: red;
+      color: #fff;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .bg-shoe {
+      max-width: 400px;
+      width: 100%;
+      height: auto;
+    }
+
+    /* Sign In & Register */
+    .sign-in-container {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 1002;
+    }
+
+    .sign-in-btn,
+    .register-btn {
+      padding: 10px 15px;
+      margin-left: 10px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .sign-in-btn {
+      background: #333;
+      color: #fff;
+    }
+
+    .register-btn {
+      background: red;
+      color: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar {
+        left: -220px; /* hide by default */
+      }
+
+      .sidebar.active {
+        left: 0; /* show when active */
+      }
+
+      .main-content {
+        margin-left: 0;
+        flex-direction: column;
+        text-align: center;
+        padding-top: 100px;
+      }
+
+      .hamburger {
+        display: block; /* show hamburger on mobile */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="logo">CAMASURA</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Hamburger button -->
+  <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="content">
+      <h1>Create your own <span>style</span></h1>
+      <p>Get the best pair at the best deal. Get 50% off on our latest collection.</p>
+      <a href="products.html" class="shop-button">SHOP NOW</a>
+    </div>
+    <img src="images/SAPATOS.jpg" class="bg-shoe" alt="Red Nike Shoe">
+  </div>
+  
+  <!-- Sign In & Register (always visible) -->
+  <div class="sign-in-container">
+    <button onclick="window.location.href='signin.html'" class="sign-in-btn">Sign In</button>
+    <button onclick="window.location.href='register.html'" class="register-btn">Register</button>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+  </script>
+
+</body>
+</html>
